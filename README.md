@@ -1,5 +1,5 @@
 # Tempus
 
-![Tempus - A WPF-based stopwatch application.](https://github.com/ClockEndGooner/Tempus/blob/master/images/Spirographs.png)
+![Tempus - A WPF-based stopwatch application.](https://github.com/ClockEndGooner/Tempus/blob/main/Tempus/Images/Tempus.png)
 
-#A WPF-based stopwatch application.
+A WPF-based stopwatch application.
