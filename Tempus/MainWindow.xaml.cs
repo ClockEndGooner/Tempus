@@ -35,7 +35,7 @@ namespace Tempus
 
         [DllImport("user32.dll")]
         private static extern bool GetWindowPlacement(IntPtr hWnd, out WindowPlacement.WindowPlacement lpPlacement);
-
+            
         #endregion MainWindow Windows Interop Supprting Definitions 
 
         #region MainWindow Class Constructor
@@ -43,6 +43,8 @@ namespace Tempus
         public MainWindow()
         {
             InitializeComponent();
+
+            this.SizeChanged += OnWindowSizeChanged;
         }
 
         #endregion MainWindow Class Constructor
@@ -82,6 +84,17 @@ namespace Tempus
                     Debugger.Break();
                 }
             }
+        }
+
+        protected void OnWindowSizeChanged(object seneder, SizeChangedEventArgs sizeChanges )
+        {
+            var mainWindow = (Window) seneder;
+
+            var trace = $"    {mainWindow.Name} ActualWidth: {ActualWidth.ToString("F2")} <<<<";
+            Debug.WriteLine(trace); 
+           
+            trace = $"    >>>> {mainWindow.Name} ActualHeight: {ActualHeight.ToString("F2")} <<<<";
+            Debug.WriteLine(trace);
         }
 
         protected override void OnClosing(CancelEventArgs e)
