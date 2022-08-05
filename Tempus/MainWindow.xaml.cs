@@ -10,13 +10,14 @@ using System.Windows.Media;
 using MahApps.Metro.Controls;
 
 using Tempus.Properties;
+using Tempus.ViewModels;
 
 namespace Tempus
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class MainWindow : MetroWindow, IStopwatchClient, IDisposable
     {
         #region MainWindow Debugging Constant Definitions
 
@@ -29,6 +30,7 @@ namespace Tempus
 
         private const int SwShowNormal = 1;
         private const int SwShowMinimized = 2;
+        private bool disposedValue;
 
         [DllImport("user32.dll")]
         private static extern bool SetWindowPlacement(IntPtr hWnd, [In] ref WindowPlacement.WindowPlacement lpwndpl);
@@ -44,10 +46,47 @@ namespace Tempus
         {
             InitializeComponent();
 
+            DataContext = new MainViewModel(this);
+
             this.SizeChanged += OnWindowSizeChanged;
         }
 
         #endregion MainWindow Class Constructor
+
+        public void OnStopwatchStarted(StopwatchEventArgs startEvent)
+        {
+            Debug.WriteLine("IStopwatchClient.OnStopwatchStarted() Called.");
+        }
+
+        public void OnStopwatchStopped(StopwatchEventArgs stopEvent)
+        {
+            throw new NotImplementedException();
+        }   
+
+        public void OnStopwatchUpdated(StopwatchEventArgs updateEvent)
+        {
+            throw new NotImplementedException();
+        }   
+
+        public void OnStopwatchReset(StopwatchEventArgs resetEvent)
+        {
+            Debug.WriteLine("IStopwatchClient.OnStopwatchReset() Called.");
+        }
+
+        public void OnStopwatchPaused(StopwatchEventArgs pausedEvent)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnStopwatchResumed(StopwatchEventArgs resumedEvent)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnStopwatchOnError()
+        {
+            throw new NotImplementedException();
+        }
 
         #region MainWindow Class Event Handler Implementations
 
@@ -106,6 +145,28 @@ namespace Tempus
             GetWindowPlacement(hWindow, out WindowPlacement.WindowPlacement placement);
             Settings.Default.WindowPlacement = placement;
             Settings.Default.Save();
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: dispose managed state (managed objects)
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+                // TODO: set large fields to null
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
 
         #endregion MainWindow Class Event Handler Implementations
