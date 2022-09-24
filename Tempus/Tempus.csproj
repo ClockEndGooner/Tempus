@@ -2,10 +2,39 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <RunAnalyzersDuringLiveAnalysis>False</RunAnalyzersDuringLiveAnalysis>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Images\About.png" />
+    <None Remove="Resources\Images\Reset.png" />
+    <None Remove="Resources\Images\Settings.png" />
+    <None Remove="Resources\Images\Split.png" />
+    <None Remove="Resources\Images\Start.png" />
+    <None Remove="Resources\Images\Stop.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\Stop.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\Start.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\Split.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\Settings.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\Reset.png" />
+  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Images\" />
@@ -17,6 +46,10 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\About.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -23,8 +23,8 @@ namespace Tempus.WindowPlacement
             Bottom = bottom;
         }
 
-         #endregion Point Structre Members
+        #endregion Point Structre Members
 
-        }
     }
+}
 

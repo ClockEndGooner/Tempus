@@ -1,16 +1,10 @@
 ﻿
-using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-    
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-
+using System;
+using System.Threading;
 using Tempus.Models;
-    
+
 namespace Tempus.ViewModels
 {
     public sealed class MainViewModel : ObservableObject
@@ -27,7 +21,7 @@ namespace Tempus.ViewModels
         {
             _stopwatch = new StopwatchModel();
             _elapsedTime = string.Empty;
-    
+
             _stopwatchClient = stopwatch;
 
             _startCommand = null;
@@ -40,7 +34,7 @@ namespace Tempus.ViewModels
         }
 
         public void InitializeStopwatch()
-        {   
+        {
             TimerCallback timerCallback = UpdateTimeCallback;
             var updateTimer = new Timer(timerCallback, null, 0, 10);
             var i = 0;
@@ -90,7 +84,7 @@ namespace Tempus.ViewModels
             _stopwatch.Running = true;
 
             InitializeStopwatch();
-           
+
             var startedEvent =
             StopwatchEventArgs.InstantiateStopwatchEventArgs("Tempus Stopwatch has been Stopped", StopwatchState.Stopped,
                                                              _stopwatch.StartTime, _stopwatch.Elapsed);
@@ -120,17 +114,17 @@ namespace Tempus.ViewModels
 
         public IRelayCommand ResetCommand
         {
-            get 
-            {   
-                return _resetCommand != null ? _resetCommand : new RelayCommand(() => { ResetStopwatch(); });   
+            get
+            {
+                return _resetCommand != null ? _resetCommand : new RelayCommand(() => { ResetStopwatch(); });
             }
         }
-            
+
         private void ResetStopwatch()
         {
             _stopwatch.Running = false;
 
-            ElapsedTime = "00:00.00";   
+            ElapsedTime = "00:00.00";
 
             var resetEventArgs =
             StopwatchEventArgs.InstantiateStopwatchEventArgs("Tempus Stopwatch has been Reset",
@@ -152,7 +146,7 @@ namespace Tempus.ViewModels
             var minutes = _stopwatch.Elapsed.Minutes;
             var seconds = _stopwatch.Elapsed.Seconds;
             var tenths = Convert.ToInt32(_stopwatch.Elapsed.Milliseconds / 100M);
-               
+
             var formattedTime = $"{hours.ToString("D2")}:{minutes.ToString("D2")}:"
                                 + $"{seconds.ToString("D2")}.{tenths.ToString()}";
 

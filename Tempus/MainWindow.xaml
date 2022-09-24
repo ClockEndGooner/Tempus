@@ -1,41 +1,22 @@
 ﻿<mah:MetroWindow x:Class="Tempus.MainWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-    xmlns:local="clr-namespace:Tempus"
-    Title="Tempus" WindowStartupLocation="Manual" MinWidth="535" MinHeight="195"
-        ResizeMode="CanResizeWithGrip" Background="#FF201C1C">
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 Title="Tempus" WindowStartupLocation="Manual" MinWidth="535" MinHeight="195"
+                ResizeMode="CanResizeWithGrip" Background="#393939">
     <Window.Resources>
-        <Style TargetType="{x:Type TextBox}">
-            <Setter Property="IsReadOnly" Value="True" />
-            <Setter Property="Width" Value="600" />
-            <Setter Property="Height" Value="125" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Foreground" Value="LightCyan" />
-            <Setter Property="Background" Value="Black" />
-            <Setter Property="Margin" Value="10" />
-            <Setter Property="Padding" Value="10" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="TextAlignment" Value="Center" />
-            <Setter Property="FontFamily" Value="LCD" />
-            <Setter Property="FontSize" Value="86" />
-        </Style>
         <Style TargetType="{x:Type Button}" x:Key="StopwatchButton">
             <Setter Property="Foreground" Value="White" />
             <Setter Property="Background" Value="Black" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="Width" Value="45" />
-            <Setter Property="Height" Value="50" />
-            <Setter Property="BorderThickness" Value="1.5" />
-            <Setter Property="Margin" Value="3,10,3,10" />
-            <Setter Property="Padding" Value="16" />
+            <Setter Property="Width" Value="Auto" />
+            <Setter Property="Height" Value="Auto" />
+            <Setter Property="BorderThickness" Value="4,6,4,6" />
+            <Setter Property="Margin" Value="6,8,6,10" />
             <Setter Property="FontFamily" Value="Segoe UI Symbol" />
-            <Setter Property="FontSize" Value="26" />
+            <Setter Property="Padding" Value="6,8,6,8" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -47,33 +28,42 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#FF403B3B" />
+                    <Setter Property="Background" Value="#FF9B9CA8" />
                 </Trigger>
             </Style.Triggers>
         </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="70"/>
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />    
+            <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
-        <Viewbox>
-            <TextBox x:Name="ElapsedTimeTextBox"
-                   Grid.Row="0" Grid.Column="0"  
-                   VerticalAlignment="Top" HorizontalAlignment="Center" 
-                   Text="{Binding Path=ElapsedTime}" />
+        <Viewbox Margin="2" Grid.Row="0" Grid.Column="0" Width="Auto" Height="Auto"
+                            StretchDirection="UpOnly" Stretch="Fill">
+            <TextBox IsReadOnly="True" Name="ElapsedTimeTextBox" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Goldenrod" Background="Black" FontFamily="LCD" BorderThickness="0">
+                00:00:00.000
+            </TextBox>
         </Viewbox>
-        <DockPanel Grid.Row="1" Grid.Column="0" Width="Auto" Height="Auto" DockPanel.Dock="Bottom"
-                   VerticalAlignment="Bottom" HorizontalAlignment="Center" LastChildFill="False">
-            <Button Name="StartStopButton" Style="{StaticResource StopwatchButton}" Command="{Binding Path=StartCommand}" ToolTip="Start" Content="⏵" />
-            <Button Name="SplitButton" Style="{StaticResource StopwatchButton}" Command="{Binding Path=StopCommand}" ToolTip="Interval/Split" Content="⏸" />
-            <Button Name="ResetButton" Style="{StaticResource StopwatchButton}" Command="{Binding Path=ResetCommand}" ToolTip="Reset" Content="⏱" />
-            <Button Name="SettingsButton" Style="{StaticResource StopwatchButton}" ToolTip="Settings..." Content="⚙" Width="45" />
-            <Button Name="AboutButton" Style="{StaticResource StopwatchButton}" ToolTip="About..." Content="❔" />
-        </DockPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0"
+                    VerticalAlignment="Top" HorizontalAlignment="Center">
+            <Button Name="StartStopButton" Style="{StaticResource StopwatchButton}" Command="{Binding StartCommand}" ToolTip="Start">
+                <Image Source="pack://application:,,,/Resources/Images/Start.png"></Image>
+            </Button>
+            <Button Name="SplitButton" Style="{StaticResource StopwatchButton}" Command="{Binding SplitCommand}" ToolTip="Split/Interval">
+                <Image Source="pack://application:,,,/Resources/Images/Split.png"></Image>
+            </Button>
+            <Button Name="ResetButton" Style="{StaticResource StopwatchButton}" Command="{Binding ResetCommand}" ToolTip="Reset">
+                <Image Source="pack://application:,,,/Resources/Images/Reset.png"></Image>
+            </Button>
+            <Button Name="SettingsButton" Style="{StaticResource StopwatchButton}" ToolTip="Settings...">
+                <Image Source="pack://application:,,,/Resources/Images/Settings.png"></Image>
+            </Button>
+            <Button Name="AboutButton" Style="{StaticResource StopwatchButton}" ToolTip="About...">
+                <Image Source="pack://application:,,,/Resources/Images/About.png"></Image>
+            </Button>
+        </StackPanel>
     </Grid>
-</mah:MetroWindow>
-    
+</mah:MetroWindow >

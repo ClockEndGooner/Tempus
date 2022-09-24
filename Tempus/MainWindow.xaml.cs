@@ -1,14 +1,10 @@
-﻿
+﻿using MahApps.Metro.Controls;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
-using System.Windows.Media;
-
-using MahApps.Metro.Controls;
-
 using Tempus.Properties;
 using Tempus.ViewModels;
 
@@ -26,7 +22,7 @@ namespace Tempus
 
         #endregion MainWindow Debugging Constant Definitions
 
-        #region MainWindow Windows Interop Supprting Definitions 
+        #region MainWindow Windows Interop Supprting Definitions
 
         private const int SwShowNormal = 1;
         private const int SwShowMinimized = 2;
@@ -37,8 +33,8 @@ namespace Tempus
 
         [DllImport("user32.dll")]
         private static extern bool GetWindowPlacement(IntPtr hWnd, out WindowPlacement.WindowPlacement lpPlacement);
-            
-        #endregion MainWindow Windows Interop Supprting Definitions 
+
+        #endregion MainWindow Windows Interop Supprting Definitions
 
         #region MainWindow Class Constructor
 
@@ -61,12 +57,12 @@ namespace Tempus
         public void OnStopwatchStopped(StopwatchEventArgs stopEvent)
         {
             throw new NotImplementedException();
-        }   
+        }
 
         public void OnStopwatchUpdated(StopwatchEventArgs updateEvent)
         {
             throw new NotImplementedException();
-        }   
+        }
 
         public void OnStopwatchReset(StopwatchEventArgs resetEvent)
         {
@@ -82,7 +78,7 @@ namespace Tempus
         {
             throw new NotImplementedException();
         }
-
+       
         public void OnStopwatchOnError()
         {
             throw new NotImplementedException();
@@ -97,14 +93,13 @@ namespace Tempus
             try
             {
                 var placement = Settings.Default.WindowPlacement;
-                placement.length = Marshal.SizeOf(typeof (WindowPlacement.WindowPlacement));
+                placement.length = Marshal.SizeOf(typeof(WindowPlacement.WindowPlacement));
                 placement.flags = 0;
                 placement.showCmd = (placement.showCmd == SwShowMinimized ? SwShowNormal : placement.showCmd);
 
                 var hWindow = new WindowInteropHelper(this).Handle;
                 SetWindowPlacement(hWindow, ref placement);
             }
-
             catch (Exception exception)
             {
                 Debug.WriteLine($"Exception Message: {exception.Message}");
@@ -125,13 +120,13 @@ namespace Tempus
             }
         }
 
-        protected void OnWindowSizeChanged(object seneder, SizeChangedEventArgs sizeChanges )
+        protected void OnWindowSizeChanged(object seneder, SizeChangedEventArgs sizeChanges)
         {
-            var mainWindow = (Window) seneder;
+            var mainWindow = (Window)seneder;
 
             var trace = $"    {mainWindow.Name} ActualWidth: {ActualWidth.ToString("F2")} <<<<";
-            Debug.WriteLine(trace); 
-           
+            Debug.WriteLine(trace);
+
             trace = $"    >>>> {mainWindow.Name} ActualHeight: {ActualHeight.ToString("F2")} <<<<";
             Debug.WriteLine(trace);
         }

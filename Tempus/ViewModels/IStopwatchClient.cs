@@ -10,7 +10,7 @@ namespace Tempus.ViewModels
         Running,
         Paused,
         Resumed,
-        Reset,                                                                                            
+        Reset,
         TimingLap
     }
 
@@ -35,7 +35,7 @@ namespace Tempus.ViewModels
         }
     }
 
-    public class StopwatchException : Exception 
+    public class StopwatchException : Exception
     {
         public DateTime OccuredOnUTC { get; private set; }
 
@@ -49,7 +49,7 @@ namespace Tempus.ViewModels
 
         public StopwatchException() : base()
         {
-            OccuredOnUTC = DateTime.UtcNow; 
+            OccuredOnUTC = DateTime.UtcNow;
         }
 
         public StopwatchException(string message) : base(message)
