@@ -3,7 +3,7 @@
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  Title="Tempus" WindowStartupLocation="Manual" MinWidth="535" MinHeight="195"
-                ResizeMode="CanResizeWithGrip" Background="#393939">
+                 ResizeMode="CanResizeWithGrip" Background="#393939">
     <Window.Resources>
         <Style TargetType="{x:Type Button}" x:Key="StopwatchButton">
             <Setter Property="Foreground" Value="White" />
@@ -14,7 +14,7 @@
             <Setter Property="Width" Value="Auto" />
             <Setter Property="Height" Value="Auto" />
             <Setter Property="BorderThickness" Value="4,6,4,6" />
-            <Setter Property="Margin" Value="6,8,6,10" />
+            <Setter Property="Margin" Value="10,12,10,12" />
             <Setter Property="FontFamily" Value="Segoe UI Symbol" />
             <Setter Property="Padding" Value="6,8,6,8" />
             <Setter Property="Template">
@@ -43,16 +43,16 @@
         </Grid.ColumnDefinitions>
         <Viewbox Margin="2" Grid.Row="0" Grid.Column="0" Width="Auto" Height="Auto"
                             StretchDirection="UpOnly" Stretch="Fill">
-            <TextBox IsReadOnly="True" Name="ElapsedTimeTextBox" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Goldenrod" Background="Black" FontFamily="LCD" BorderThickness="0">
-                00:00:00.000
-            </TextBox>
+            <TextBox IsReadOnly="True" Name="ElapsedTimeTextBox"         
+                     Foreground="Goldenrod" Background="Black" FontFamily="LCD" BorderThickness="0" 
+                     Text="{Binding ElapsedTime}" TextChanged="OnElapsedTimeChanged"/>                        
         </Viewbox>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0"
                     VerticalAlignment="Top" HorizontalAlignment="Center">
             <Button Name="StartStopButton" Style="{StaticResource StopwatchButton}" Command="{Binding StartCommand}" ToolTip="Start">
                 <Image Source="pack://application:,,,/Resources/Images/Start.png"></Image>
             </Button>
-            <Button Name="SplitButton" Style="{StaticResource StopwatchButton}" Command="{Binding SplitCommand}" ToolTip="Split/Interval">
+            <Button Name="SplitButton" Style="{StaticResource StopwatchButton}" Command="{Binding StopCommand}" ToolTip="Split/Interval">
                 <Image Source="pack://application:,,,/Resources/Images/Split.png"></Image>
             </Button>
             <Button Name="ResetButton" Style="{StaticResource StopwatchButton}" Command="{Binding ResetCommand}" ToolTip="Reset">
