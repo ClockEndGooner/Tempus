@@ -1,15 +1,21 @@
-﻿using MahApps.Metro.Controls;
+﻿
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Interop;
-using Tempus.Properties;
+
+using MahApps.Metro.Controls;
+
 using Tempus.ViewModels;
 
 namespace Tempus
 {
+    using System.Windows.Data;
+    using Tempus.Properties;
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -44,7 +50,9 @@ namespace Tempus
 
             DataContext = new MainViewModel(this);
 
-            this.SizeChanged += OnWindowSizeChanged;
+            ToggleButton += OnToggleStartStopButton;
+
+            SizeChanged += OnWindowSizeChanged;
         }
 
         #endregion MainWindow Class Constructor
@@ -52,6 +60,8 @@ namespace Tempus
         public void OnStopwatchStarted(StopwatchEventArgs startEvent)
         {
             Debug.WriteLine("IStopwatchClient.OnStopwatchStarted() Called.");
+
+            ElapsedTimeTextBox.Text = "00:00:00.00";
         }
 
         public void OnStopwatchStopped(StopwatchEventArgs stopEvent)
@@ -78,12 +88,12 @@ namespace Tempus
         {
             throw new NotImplementedException();
         }
-       
-        public void OnStopwatchOnError()
-        {
-            throw new NotImplementedException();
-        }
 
+        public void OnStopwatchOnError()
+        {   
+                throw new NotImplementedException();
+        }   
+            
         #region MainWindow Class Event Handler Implementations
 
         protected override void OnSourceInitialized(EventArgs e)
@@ -100,6 +110,7 @@ namespace Tempus
                 var hWindow = new WindowInteropHelper(this).Handle;
                 SetWindowPlacement(hWindow, ref placement);
             }
+
             catch (Exception exception)
             {
                 Debug.WriteLine($"Exception Message: {exception.Message}");
@@ -164,6 +175,48 @@ namespace Tempus
             GC.SuppressFinalize(this);
         }
 
+        private void OnElapsedTimeChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
+        }
+
         #endregion MainWindow Class Event Handler Implementations
+
+        public static readonly RoutedEvent ToggleButtonEvent =
+        EventManager.RegisterRoutedEvent
+        (
+            name: "ToggleButton",
+            routingStrategy: RoutingStrategy.Bubble,
+            handlerType: typeof(RoutedEventHandler),
+            ownerType: typeof(Button)
+        );
+
+        public event RoutedEventHandler ToggleButton
+        {
+            add { AddHandler(ToggleButtonEvent, value); }
+            remove { RemoveHandler(ToggleButtonEvent, value); }
+        }
+
+        private void OnToggleStartStopButton(object sender, RoutedEventArgs e)
+        {
+            Button startStopButton = (Button)sender;
+            var binding = new Binding();
+
+            if ((string)startStopButton.ToolTip == "Start")
+            {
+                binding.Path = new PropertyPath("StopCommand"); //Name of the property in Datacontext
+                startStopButton.SetBinding(Button.CommandProperty, binding);
+                startStopButton.ToolTip = "Stop";
+                startStopButton.Content = "pack://application:,,,/Resources/Images/Stop.png";
+            }
+
+            else
+            {
+                binding.Path = new PropertyPath("StartCommand"); //Name of the property in Datacontext
+                startStopButton.SetBinding(Button.CommandProperty, binding);
+                startStopButton.ToolTip = "Stsrt";
+                startStopButton.Content = "pack://application:,,,/Resources/Images/Start.png";
+            }
+        }
     }
 }
